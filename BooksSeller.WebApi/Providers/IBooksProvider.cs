@@ -10,14 +10,18 @@ namespace BooksSeller.WebApi.Providers
     {
         Book Create();
 
-        Book GetBook(int id);
+        Book GetBook(string id);
+
+        IEnumerable<Book> Filter(string title);
 
         List<Book> GetBooks();
 
         void SaveBook(Book book);
 
-        void SaveBook(int id, Book book);
+        void SaveBook(string id, Book book);
 
-        void DeleteBook(int id);
+        void DeleteBook(string id);
+
+
     }
 }

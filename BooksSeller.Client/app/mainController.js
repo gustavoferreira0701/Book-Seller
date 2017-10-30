@@ -1,16 +1,10 @@
 ﻿(function () {
     "use strict";
 
-    function mainController($scope, $rootScope) {
-        $rootScope.currency = 'R$'; // Default currency
-
-        var vm = this;
-        vm.editionMode = false;
-
+    function mainController($rootScope) {
     }
 
     angular
         .module("booksSeller")
-        .controller("mainController",
-            ["$scope", "$rootScope", mainController]);
+        .controller("mainController",["$scope", "$rootScope", mainController]);
 })();

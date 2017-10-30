@@ -1,24 +1,45 @@
 ﻿<!DOCTYPE html>
 <html>
+
 <head>
     <title></title>
-	<meta charset="utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <!-- Styles -->
     <link rel="stylesheet" href="Content/bootstrap.min.css" />
+    <link rel="stylesheet" href="Content/datetimepicker.css" />
+    <link rel="stylesheet" href="Content/mdRatingBar.min.css" />
+    <link rel="stylesheet" href="Content/style.css" />
+
+    <!-- Fonts -->
+    <link rel="stylesheet" href="Content/font-awesome.min.css" />
 </head>
+
 <body ng-app="booksSeller" ng-controller="mainController as vm">
 
     <div class="container">
-        <div ng-if="vm.editionMode"
-             ng-include="'app/books/booksEditView.html'"></div>
-        <div ng-if="!vm.editionMode"
-             ng-include="'app/books/booksListView.html'"></div>
+        <div class="col-lg-12">
+                <div ng-view></div>    
+        </div>        
     </div>
 
     <!-- Library Scripts -->
-    <script src="scripts/angular.min.js"></script>
+    <script src="Scripts/moment.js"></script>
+    <script src="Scripts/angular.js"></script>
+    <script src="Scripts/angular-route.js"></script>
     <script src="Scripts/angular-resource.js"></script>
+    <script src="Scripts/angular-locale_pt-br.js"></script>
     <script src="Scripts/jquery-1.9.1.min.js"></script>
-    <script src="Scripts/bootstrap.min.js"></script>    
+    <script src="Scripts/bootstrap.min.js"></script>
+
+    <!-- datepicker configurations -->
+    <script src="Scripts/datetimepicker.js"></script>
+    <script src="Scripts/datetimepicker.templates.js"></script>
+
+    <!-- Input Mask Configuration -->
+    <script src="Scripts/angular-input-masks-standalone.js"></script>
 
     <!-- Application Script -->
     <script src="app/app.js"></script>
@@ -26,12 +47,13 @@
     <!-- Services -->
     <script src="services/common.services.js"></script>
     <script src="services/booksService.js"></script>
+    <script src="services/routeConfigProvider.js"></script>
 
     <!-- Product Controllers -->
-    <script src="app/mainController.js"></script>
-    <script src="app/books/booksListController.js"></script>
+    <script src="app/mainController.js"></script>    
     <script src="app/books/booksListController.js"></script>
     <script src="app/books/booksEditController.js"></script>
 
 </body>
+
 </html>

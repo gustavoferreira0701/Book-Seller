@@ -1,114 +1,99 @@
-﻿<form class="form-horizontal"
-      name="bookForm"
-      novalidate
-      ng-controller="booksEditController as vm">
-    <fieldset>
-        <legend>Book Information</legend>
-
-        <div class="form-group"
-             ng-class="{'has-error':bookForm.inputCode.$invalid &&
-                                    bookForm.inputCode.$dirty}">
-            <label class="col-md-2 control-label"
-                   for="inputCode">Code</label>
-
-            <div class="col-md-4">
-                <input class="form-control"
-                       id="inputCode"
-                       name="inputCode"
-                       type="text"
-                       placeholder="Book Code (required)"
-                       ng-model="vm.book.code"
-                       ng-pattern="/^[A-Z]{3}[-][0-9]{4}$/"
-                       maxlength="8"
-                       required>
+﻿<form class="form-horizontal" name="bookForm" novalidate ng-controller="booksEditController as vm">
+    <div class="panel panel-primary">
+        <div class="panel-heading" style="font-size:large">
+            <div class="row">
+                <div class="col-md-6">
+                    Book Detail
+                </div>
             </div>
-            <span class="help-block has-error">
-                Product Code is required
-            </span>
-            <span class="help-block has-error">
-                Code is not valid. It must be in ABC-9999 format.
-            </span>
         </div>
-
-        <div class="form-group"
-             ng-class="{'has-error':bookForm.inputTitle.$invalid &&
-                                    bookForm.inputTitle.$dirty}">
-            <label class="col-md-2 control-label"
-                   for="inputTitle">Title</label>
-
-            <div class="col-md-4">
-                <input class="form-control"
-                       id="inputTitle"
-                       name="inputTitle"
-                       type="text"
-                       placeholder="Title (required)"
-                       ng-model="vm.book.title"
-                       required
-                       ng-minlength="1"
-                       ng-maxlength="100" />
+        <div class="panel-body">
+            <div class="form-group" ng-class="{'has-error':bookForm.inputCode.$invalid && bookForm.inputCode.$dirty}">
+                <label class="col-md-2 control-label" for="inputCode">Code</label>
+                <div class="col-md-4">
+                    <input class="form-control" id="inputCode" name="inputCode" type="text" placeholder="Book Code (required)" ng-model="vm.book.Code"
+                        ng-pattern="/^[A-Z]{3}[-][0-9]{4}$/" maxlength="8" required />
+                </div>
+                <span class="help-block has-error" ng-show="bookForm.inputCode.$error.required && bookForm.inputCode.$dirty">
+                    Product Code is required
+                </span>
+                <span class="help-block has-error" ng-show="bookForm.inputCode.$error.pattern">
+                    Code is not valid. It must be in ABC-9999 format.
+                </span>
             </div>
-            <span class="help-block has-error">
-                <span>
+
+            <div class="form-group" ng-class="{'has-error':bookForm.inputTitle.$invalid &&
+                                                        bookForm.inputTitle.$dirty}">
+                <label class="col-md-2 control-label" for="inputTitle">Title</label>
+
+                <div class="col-md-4">
+                    <input class="form-control" id="inputTitle" name="inputTitle" type="text" placeholder="Title (required)" ng-model="vm.book.Title"
+                        required />
+                </div>
+                <span class="help-block has-error" ng-show="bookForm.inputTitle.$error.required && bookForm.inputTitle.$dirty">
                     Book title is required.
                 </span>
-            </span>
-        </div>
-
-        <div class="form-group">
-            <label class="col-md-2 control-label"
-                   for="inputAvailabilityDate">Availability</label>
-
-            <div class="col-md-4">
-                <input class="form-control"
-                       id="inputAvailabilityDate"
-                       name="inputAvailabilityDate"
-                       type="text"
-                       placeholder="Release date (required)"
-                       ng-model="vm.book.releaseDate"
-                       required />
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="col-md-2 control-label"
-                   for="inputPrice">Price in{{currency}}</label>
-
-            <div class="col-md-4">
-                <input class="form-control"
-                       id="inputPrice"
-                       name="inputPrice"
-                       type="text"
-                       placeholder="Price (required)"
-                       ng-model="vm.book.price"
-                       required />
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-4 col-md-offset-2">
-                <span>
-                    <button class="btn btn-primary"
-                            style="width:80px;margin-right:10px"
-                            ng-click="vm.submit()">
-                        Save
-                    </button>
-                </span>
-                <span>
-                    <button class="btn btn-default"
-                            style="width:70px"
-                            ng-click="vm.cancel(bookForm)">
-                        Cancel
-                    </button>
+                <span class="help-block has-error" ng-show="bookForm.inputTitle.$error.maxlength">
+                    The Title provided exceed the 100 characters limit, please provide a short title.
                 </span>
             </div>
-        </div>
 
-        <div class="form-group"
-             ng-show="vm.message">
-            <div class="col-md-6">
-                <pre style="font: inherit">{{ vm.message }}</pre>
+            <div class="form-group">
+                <label class="col-md-2 control-label" for="inputAvailabilityDate">Release Date</label>
+                <div class="col-md-4">
+                    <div class="dropdown">
+                        <a class="dropdown-toggle" id="dropdown2" role="button" data-toggle="dropdown">
+                            <div class="input-group">
+                                <input type="text" class="form-control" data-ng-model="vm.book.ReleaseDate">
+                                <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-calendar"></i>
+                                </span>
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                            <datetimepicker data-ng-model="vm.book.ReleaseDate" data-datetimepicker-config="{ dropdownSelector: '#dropdown2', minView:'day' }"
+                            />
+                        </ul>
+                    </div>
+                </div>
+                <span class="help-block has-error" ng-show="bookForm.inputAvailabilityDate.$error.required && bookForm.inputAvailabilityDate.$dirty">
+                    Release Date is required.
+                </span>
             </div>
-        </div>
 
-    </fieldset>
+            <div class="form-group">
+                <label class="col-md-2 control-label" for="inputPrice">Price in {{currency}}</label>
+
+                <div class="col-md-4">
+                    <input class="form-control" id="inputPrice" name="inputPrice" type="text" placeholder="Price (required)" ng-model="vm.book.Price"
+                        ui-money-mask required />
+                </div>
+                <span class="help-block has-error" ng-show="bookForm.inputPrice.$error.required && bookForm.inputPrice.$dirty">Book Price is required.</span>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label" for="inputAuthor">Author</label>
+                <div class="col-md-4">
+                    <input class="form-control" id="inputAuthor" name="inputAuthor" type="text" placeholder="Author" ng-model="vm.book.Author"
+                    />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-2 control-label" for="inputRating">Rating</label>
+                <div class="col-md-4">
+                    <input class="form-control" id="inputRating" name="inputRating" type="number" placeholder="Rating" ng-model="vm.book.Rating"
+                    />
+                </div>
+            </div>
+
+            <div class="form-group" ng-show="vm.message">
+                <div class="col-md-6">
+                    <pre style="font: inherit">{{ vm.message }}</pre>
+                </div>
+            </div>
+            <button class="btn btn-primary" style="width:80px;margin-right:10px" ng-disabled="!bookForm.$valid" ng-click="vm.submit()">Save</button>
+            <button class="btn btn-default" style="width:70px" ng-click="vm.cancel(bookForm)">Cancel</button>
+            <a onclick="history.go(-1)" class="btn btn-link">Back to List</a>
+        </div>
+    </div>
 </form>

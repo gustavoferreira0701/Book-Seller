@@ -1,19 +1,57 @@
-﻿<div class="panel panel-primary" ng-controller="booksListController as vm">
+﻿<div class="panel panel-primary">
     <div class="panel-heading" style="font-size:large">
-        Books List
+        <div class="row">
+            <div class="col-md-6">
+                Books List
+            </div>
+            <div class="col-md-6">
+                <div class="row">
+                        <div class="col-md-9">
+                                <input class="form-control" type="text" ng-model="vm.searchTerm" placeholder="Search for a book title here....">
+                        </div>
+                        <div class="col-md-2">
+                                <button class="btn btn-default" ng-click="vm.searchBook(vm.searchTerm)">Search</button>
+                        </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="panel-body">
-        <table class="table">
+        <table class="table table-striped table-hover book-tbl">
             <thead>
                 <tr>
-                    <td>Code</td>
-                    <td>Title</td>
-                    <td>Available</td>
-                    <td>Price in {{currency}}</td>
+                    <th>Code</th>
+                    <th>
+                        <a class="book-tbl-th-filter" ng-click="vm.orderBy('Title')">Title</a>
+                    </th>
+                    <th>
+                        <a class="book-tbl-th-filter" ng-click="vm.orderBy('ReleaseDate')">Release Date</a>
+                    </th>
+                    <th>
+                        <a class="book-tbl-th-filter" ng-click="vm.orderBy('Price')">Price in {{currency}}</a>
+                    </th>
+                    <th>
+                        <a class="book-tbl-th-filter" ng-click="vm.orderBy('Rating')">Rating</a>
+                    </th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
+                <tr ng-repeat="book in vm.books | orderBy:vm.orderCriteria:vm.orderDirection">
+                    <td>{{book.Code}}</td>
+                    <td>{{book.Title}}</td>
+                    <td>{{book.ReleaseDate | date:'dd/MM/yyyy'}}</td>
+                    <td>{{book.Price | currency}}</td>
+                    <td>{{book.Rating}}</td>
+                    <td>
+                        <a class="btn btn-primary" ng-href="#/books/edit/{{book.Code}}" title="Edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                        <button class="btn btn-danger" ng-click="vm.delete(book)" title="Remove"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                    </td>
+                </tr>
             </tbody>
         </table>
+    </div>
+    <div class="panel-footer">
+        <a class="btn btn-primary" href="#/books/new">New Book</a>
     </div>
 </div>

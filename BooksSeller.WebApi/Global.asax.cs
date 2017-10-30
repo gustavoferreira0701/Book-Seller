@@ -1,5 +1,7 @@
-﻿using System;
+﻿using BooksSeller.WebApi.Models;
+using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
@@ -13,6 +15,7 @@ namespace BooksSeller.WebApi
     {
         protected void Application_Start()
         {
+            Database.SetInitializer<BookSellerContext>(new DropCreateDatabaseIfModelChanges<BookSellerContext>());
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

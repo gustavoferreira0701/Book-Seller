@@ -1,34 +1,45 @@
 ﻿(function () {
     "use strict";
 
-    function booksEditController() {
+    function booksEditController($routeParams, $location, $http, appSettings, booksService) {
+        
         var vm = this;
-        vm.book = {};
-        vm.originalBook = {};
+
+        if($routeParams.bookId != undefined){            
+            $http.get(`${appSettings.serverPath}api/books/get/${$routeParams.bookId}`)
+                 .then(function (result) {                
+                        vm.originalBook = result.data;    
+                        vm.book = angular.copy(vm.originalBook);
+                  });
+        }else{
+            vm.originalBook = {}
+            vm.book = angular.copy(vm.originalBook);
+        }
+
         vm.title = '';
-        vm.message = '';
+        vm.message = '';        
 
         // Query the book using a service
-
-        if (vm.book && vm.book.code) {
-            vm.title = "Edit: " + vm.book.title;
-        }
-        else {
-            vm.title = "New Book";
-        }
+        vm.title = (vm.book && vm.book.code)? "Edit: " + vm.book.title:"New Book";
 
         vm.submit = function () {
             vm.message = '';
-            if (vm.book.code) {
-                // Update Book
-            } else {
-                // Save a New Book
+
+            if(angular.equals(vm.originalBook, {}) || vm.originalBook.Code !== vm.book.Code){
+                $http.post(`${appSettings.serverPath}api/books/post/`, vm.book).then(function () {
+                    $location.path("/");
+                });
+            }else{
+
+                $http.put(`${appSettings.serverPath}api/books/put/${vm.book.Code}`, vm.book).then(function () {
+                    $location.path("/");
+                });
             }
         };
 
         vm.cancel = function (editForm) {
             editForm.$setPristine();
-            vm.product = angular.copy(vm.originalBook);
+            vm.book = angular.copy(vm.originalBook);
             vm.message = '';
         };
 
@@ -36,6 +47,5 @@
 
     angular
     .module("booksSeller")
-    .controller("booksEditController",
-                 booksEditController);
+    .controller("booksEditController", booksEditController);
 }());
